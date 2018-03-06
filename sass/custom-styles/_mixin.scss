@@ -1,0 +1,24 @@
+@mixin clearfix{
+	&:after{
+		clear: both;
+		content: '';
+		display: block;
+	}
+}
+
+
+@mixin spin($deg){
+	@-moz-keyframes spin { 100% { -moz-transform: rotate($deg+deg); } }
+	@-webkit-keyframes spin { 100% { -webkit-transform: rotate($deg+deg); } }
+	@keyframes spin { 100% { -webkit-transform: rotate($deg+deg); transform:rotate($deg+deg); } }
+}
+
+.outer-v{
+  display: table;
+  width: 100%;
+  height: 100%;
+}
+.inner-v{
+  display: table-cell;
+  vertical-align: middle;
+}
