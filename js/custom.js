@@ -63,23 +63,23 @@ jQuery(document).ready(function(){
 		var scrollTop = jQuery(document).scrollTop();
 		// var scroll = jQuery(document).scrollTop();
 		// var top = (scroll / 100);
-		if(scrollTop <= 400){
-			var bgPositionY = parseFloat(jQuery('.n2-ss-background-image').css('background-position-y'));
-			// console.log(bgPositionY)
-			if(scrollTop > positionTop){
-				var posY = parseFloat(bgPositionY + (scrollTop / 100) * 1).toFixed(2);
-			}else{
-				// console.log(bgPositionY, positionTop)
-				if(bgPositionY <= 51){
-					posY = 50;
-				}else{
-					posY = parseFloat(bgPositionY - (positionTop / 100) * 1).toFixed(2) ;	
-				}
+		// if(scrollTop <= 400){
+		// 	var bgPositionY = parseFloat(jQuery('.n2-ss-background-image').css('background-position-y'));
+		// 	// console.log(bgPositionY)
+		// 	if(scrollTop > positionTop){
+		// 		var posY = parseFloat(bgPositionY + (scrollTop / 100) * 1).toFixed(2);
+		// 	}else{
+		// 		// console.log(bgPositionY, positionTop)
+		// 		if(bgPositionY <= 51){
+		// 			posY = 50;
+		// 		}else{
+		// 			posY = parseFloat(bgPositionY - (positionTop / 100) * 1).toFixed(2) ;	
+		// 		}
 				
-			}
-			jQuery('.n2-ss-background-image').css('background-position-y', (posY)+'%');
-			positionTop = scrollTop;
-		}
+		// 	}
+		// 	jQuery('.n2-ss-background-image').css('background-position-y', (posY)+'%');
+		// 	positionTop = scrollTop;
+		// }
 
 		// positionTop = scroll;
 		// console.log(scrollTop)
@@ -97,6 +97,35 @@ jQuery(document).ready(function(){
 
 	});
 
+	jQuery('.all-artist__img').on('click', function(){
+		var id = jQuery(this).data('id');
+		var artistImg = jQuery(this).parent().clone();
+
+		jQuery('.all-artist-overlay[data-modal=modal-'+id+']').addClass('all-artist-overlay--show');
+		jQuery('.all-artist-overlay[data-modal=modal-'+id+']').find('.all-artist-modal__img').empty().append(artistImg);
+		jQuery('body').css('overflow', 'hidden');
+	});
+
+	jQuery('.all-artist-modal__close').on('click', function(e){
+		e.stopPropagation();
+		e.preventDefault();
+		jQuery(this).parents('.all-artist-overlay').removeClass('all-artist-overlay--show');
+		jQuery('body').css('overflow', 'auto');
+	});
+
+	jQuery('.header-search__input').on('keyup', function(){
+		var text = jQuery(this).val();
+		console.log(jQuery(this).val());
+		jQuery.ajax({
+			type: 'POST',
+			dataType: 'json',
+			url: '../wp-admin/admin-ajax.php',
+			data: 'action=get_listing_names&name='+text,
+			success: function(data) {
+				console.log(data);
+			}
+		});
+	});
 
 });
 

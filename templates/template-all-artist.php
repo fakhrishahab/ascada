@@ -37,6 +37,8 @@ $all_artist = wp_get_recent_posts($args, ARRAY_A);
 						$youtube = get_post_meta($artist['ID'], 'youtube', true);	
 						$twitter = get_post_meta($artist['ID'], 'twitter', true);	
 
+						$kota_asal = get_post_meta($artist['ID'], 'kota asal', true);	
+
 						if(! empty($facebook)){
 							$socmed .= '<li><a href="'.$facebook.'"><img src="" alt=""></a></li>';
 						}
@@ -53,7 +55,7 @@ $all_artist = wp_get_recent_posts($args, ARRAY_A);
 			?>
 
 				<div class="all-artist__item">
-					<div class="all-artist__img" style="background-image:url(<?php echo $category_image; ?>)">						
+					<div class="all-artist__img" data-id="<?php echo $artist['ID'];?>" style="background-image:url(<?php echo $category_image; ?>)">						
 					</div>
 					<div class="all-artist__detail">
 						<h2><?php echo $artist['post_title'];?></h2>
@@ -76,6 +78,24 @@ $all_artist = wp_get_recent_posts($args, ARRAY_A);
 					</div>
 				</div>
 
+				<div class="all-artist-overlay" data-modal=modal-<?php echo $artist['ID']?>>
+					<div class="all-artist-modal">
+						<div class="all-artist-modal__wrapper ff-container-fluid">
+							<i class="fa fa-close all-artist-modal__close"></i>
+							<div class="row">
+								<div class="col-5 col-sm-12 all-artist-modal__img">
+									
+								</div>
+								<div class="col-7 col-sm-12 all-artist-modal__content">
+									<?php 
+										echo apply_filters('the_content',$artist['post_content']);
+									?>									
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
 			<?php	
 					}
 					
@@ -92,6 +112,25 @@ $all_artist = wp_get_recent_posts($args, ARRAY_A);
 				wp_reset_postdata();
 			?>		
 			</ul>
+
+			<!-- <div class="all-artist-overlay" data-modal='modal-'>
+				<div class="all-artist-modal">
+					<div class="all-artist-modal__wrapper ff-container-fluid">
+						<div class="row">
+							<div class="col-5 all-artist-modal__img">
+								
+							</div>
+							<div class="col-7 all-artist-modal__content">
+								<p>Artist : <b></b></p>
+								<p>Kota Asal : <b></b></p>
+								<p>
+									'lorem'
+								</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div> -->
 		</div>
 		
 	</div>
